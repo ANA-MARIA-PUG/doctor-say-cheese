@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Cobrescu-Sucitu Alexandra Ioana</title>
+    <link rel="icon" type="image/png" href="alex.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            background-color: #1a1a1a; 
+            color: #d4af37; 
+            font-family: 'Cinzel', serif; 
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            margin: 0;
+        }
+
+        .sidebar { 
+            height: 100vh; 
+            background: #000; 
+            border-right: 2px solid #d4af37;
+            padding: 20px; 
+            position: fixed; 
+            width: 280px; 
+            z-index: 1000;
+            top: 0;
+            left: 0;
+        }
+
+        .btn-outline-gold {
+            color: #d4af37;
+            border-color: #d4af37;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-outline-gold:hover { background-color: #d4af37; color: black; }
+
+        .content { 
+            margin-left: 300px; 
+            padding: 40px; 
+            width: calc(100% - 300px); 
+        }
+
+        .card { 
+            background: #262626; 
+            border: 1px solid #d4af37; 
+            color: white;
+            border-radius: 0px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            margin-bottom: 30px;
+        }
+
+        h1, h2 { 
+            color: #d4af37; 
+            text-transform: uppercase; 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3); 
+            padding-bottom: 10px; 
+        }
+
+        .table { color: #ccc; }
+        .table thead { color: #d4af37; border-bottom: 2px solid #d4af37; }
+
+        .form-control {
+            background-color: #333;
+            border: 1px solid #d4af37;
+            color: white;
+            border-radius: 0;
+        }
+
+        .img-cabinet {
+            border: 2px solid #d4af37;
+            padding: 5px;
+            background: #000;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .img-cabinet:hover {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 992px) {
+            .sidebar { position: relative; width: 100%; height: auto; border-right: none; }
+            .content { margin-left: 0; width: 100%; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="d-flex align-items-center mb-4 text-center flex-column">
+        <img src="alex.png" style="width: 80px; height: 80px; margin-bottom: 15px; border: 2px solid #d4af37; border-radius: 50%;">
+        <h5 style="font-size: 0.9rem; line-height: 1.4;">Dr. Cobrescu-Sucitu<br>Alexandra Ioana</h5>
+    </div>
+    
+    <hr style="border-color: #d4af37;">
+    <button class="btn btn-outline-gold w-100" onclick="show('prezentare_medic')">🛡️ Despre Medic 🛡️</button>
+    <button class="btn btn-outline-gold w-100" onclick="show('prezentare_cabinetului')">🏰 Cabinetul 🏰 </button>
+    <button class="btn btn-outline-gold w-100" onclick="show('tarife')">💰 Tarife 💰</button>
+    <button class="btn btn-outline-gold w-100" onclick="show('review_section')">📜 Recenzii 📜</button>
+    <button class="btn btn-outline-gold w-100" onclick="show('programare_client')">✉️ Programare Nouă ✉️</button>
+    <hr style="border-color: #d4af37;">
+    <button class="btn btn-outline-gold w-100" style="background: #111; font-size: 0.7rem; opacity: 0.7;" onclick="accesMedic()">🔒 Registru Maistru (Admin)</button>
+</div>
+
+<div class="content">
+
+    <div id="prezentare_medic" class="section">
+        <h1>Dr. Alexandra-Ioana Cobrescu-Sucitu</h1>
+        <div class="card p-4">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center">
+                    <img src="alex3.png" class="img-fluid" style="border: 2px solid #d4af37; padding: 5px; background: #000; max-width: 280px;">
+                </div>
+                <div class="col-lg-8 mt-4 mt-lg-0">
+                    <div class="px-lg-3">
+                        <p class="mb-2">📅 <strong>Data Nașterii:</strong> 19.09.1988</p>
+                        <p class="mb-2">🦷 <strong>Experiență:</strong> 10+ Ani în domeniu</p>
+                        <p class="mb-2">📞 <strong>Contact:</strong> +40 724 248 842</p>
+                        <p class="mb-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" style="width: 18px; margin-right: 10px; vertical-align: middle;"> 
+                            <strong>Facebook:</strong> 
+                            <a href="https://www.facebook.com/alexandra.cobrescu.3" target="_blank" style="color: #d4af37; text-decoration: underline; font-size: 0.95rem;">
+                                Dr. Alexandra Cobrescu (Trimite un mesaj)
+                            </a>
+                        </p>
+                        <p class="mb-4">📜 <strong>Studii:</strong> Medicină Dentară la "Victor Babeș", Timișoara</p>
+                        <hr style="border-color: rgba(212,175,55,0.3)">
+                        <p style="text-align: justify; font-size: 1.05rem; line-height: 1.7; color: #eee;">
+                            Dr. Alexandra Ioana Cobrescu-Sucitu este medic stomatolog dedicat, oferind tratamente moderne într-o manieră atentă și profesionistă, punând confortul pacienților pe primul loc.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="prezentare_cabinetului" class="section" style="display:none;">
+        <h1>🏰 Cabinetul COB. DOCTOR SAY CHEESE</h1>
+        <div class="card p-4">
+            <div class="row g-4 mb-4">
+                <div class="col-md-4"><img src="cabinet1.jpg" class="img-cabinet"></div>
+                <div class="col-md-4"><img src="cabinet2.jpg" class="img-cabinet"></div>
+                <div class="col-md-4"><img src="cabinet3.jpg" class="img-cabinet"></div>
+            </div>
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-5">
+                    <h3 style="font-size: 1.3rem; color: #d4af37; margin-bottom: 20px;">📍 Locație</h3>
+                    <div style="background: rgba(0,0,0,0.4); padding: 20px; border-left: 3px solid #d4af37;">
+                        <p class="mb-1"><strong>Strada:</strong> Bulevardul Dimitrie Cantemir</p>
+                        <p class="mb-1"><strong>Detalii:</strong> Nr. 20, Bl. 8, Sc. 1, Ap. 4</p>
+                        <p class="mb-1"><strong>Acces:</strong> Interfon 104C</p>
+                        <p class="mb-0"><strong>Oraș:</strong> București, România</p>
+                    </div>
+                    <div style="background: rgba(212,175,55,0.1); padding: 15px; border: 1px dashed #d4af37; margin-top: 15px;">
+                        <h6 style="color: #d4af37; font-size: 0.9rem;">⏳ Program de Lucru:</h6>
+                        <p class="mb-0" style="font-size: 0.85rem;">Luni - Vineri: 09:00 - 20:00</p>
+                        <p class="mb-0" style="font-size: 0.85rem;">Sâmbătă: Urgențele</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div style="border: 2px solid #d4af37; padding: 5px; background: #000;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.564757474443!2d26.1017!3d44.4234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDI1JzI0LjIiTiAyNsKwMDYnMDYuMSJF!5e0!3m2!1sro!2sro!4v1610000000000" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tarife" class="section" style="display:none;">
+        <h1>💰 Tarifele Cabinetului </h1>
+        <div class="card p-4">
+            <table class="table">
+                <thead><tr><th>Serviciu Nobiliar</th><th>Cost (RON)</th></tr></thead>
+                <tbody>
+                    <tr><td>Consultație Maistru</td><td>150 RON</td></tr>
+                    <tr><td>Detartraj Valyrian</td><td>250 RON</td></tr>
+                    <tr><td>Plombă de Oțel (Compozit)</td><td>300 RON</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="review_section" class="section" style="display:none;">
+        <h1>📜 Recenziile Cabinetului</h1>
+        <div class="card p-4">
+            <div class="mb-5 p-3" style="border: 1px solid rgba(212,175,55,0.3); background: rgba(0,0,0,0.2);">
+                <h5 style="color: #d4af37;">Scrie propria recenzie:</h5>
+                <input type="text" id="rev_nume" class="form-control mb-2" placeholder="Numele tău">
+                <textarea id="rev_text" class="form-control mb-2" rows="3" placeholder="Mesajul tău..."></textarea>
+                <select id="rev_rating" class="form-control mb-3" style="width: 150px;">
+                    <option value="⭐⭐⭐⭐⭐">5 Stele</option>
+                    <option value="⭐⭐⭐⭐">4 Stele</option>
+                    <option value="⭐⭐⭐">3 Stele</option>
+					<option value="⭐⭐">2 Stele</option>
+					<option value="⭐">1 Stele</option>
+                </select>
+                <button class="btn btn-outline-gold w-100" onclick="adaugaReview()">Publică Recenzia</button>
+            </div>
+            <div id="lista_reviews"></div>
+        </div>
+    </div>
+
+    <div id="programare_client" class="section" style="display:none;">
+		<h1>✉️ Programare</h1>
+		<div class="card p-4 text-center">
+			<div class="mx-auto" style="max-width: 500px;">
+				<input type="text" id="c_nume" class="form-control mb-3" placeholder="Numele Tău">
+				<select id="c_ora" class="form-control mb-3">
+					<option value="" disabled selected>Alege intervalul</option>
+					<option>Dimineața (09:00 - 12:00)</option>
+					<option>După-amiaza (14:00 - 18:00)</option>
+				</select>
+				<button class="btn btn-outline-gold w-100 py-2" onclick="trimiteWhatsApp()">Trimite pe WhatsApp</button>
+            
+				<div class="mt-4 pt-3" style="border-top: 1px solid rgba(212, 175, 55, 0.2);">
+					<p class="mb-2" style="font-size: 0.9rem; color: #aaa;">🛡️ Pentru urgențe regale, apelați direct :</p>
+					<a href="tel:+40724248842" style="color: #d4af37; text-decoration: none; font-size: 1.2rem; font-weight: bold;">
+						📞 +40 724 248 842
+					</a>
+					<p class="mt-3" style="font-size: 0.8rem; font-style: italic; opacity: 0.6;">
+						* Veți primi confirmarea programării prin mesaj în cel mai scurt timp.
+					</p>
+				</div>
+            </div>
+		</div>
+	</div>
+
+    <div id="admin_panel" class="section" style="display:none;">
+        <h1>📚 Registrul Maistrului (Admin)</h1>
+        
+        <div class="card p-3 mb-4">
+            <h5 style="color: #d4af37;">Programări Noi:</h5>
+            <div class="row g-2 mb-3">
+                <div class="col-md-5"><input type="text" id="adm_p_nume" class="form-control" placeholder="Pacient"></div>
+                <div class="col-md-4"><input type="time" id="adm_p_ora" class="form-control"></div>
+                <div class="col-md-3"><button class="btn btn-outline-gold w-100 m-0" onclick="salveazaProgramare()">Adaugă</button></div>
+            </div>
+            <table class="table">
+                <thead><tr><th>Ora</th><th>Nume</th><th>Acțiuni</th></tr></thead>
+                <tbody id="tabel-programari"></tbody>
+            </table>
+        </div>
+
+        <div class="card p-3">
+            <h5 style="color: #d4af37;">🛡️ Moderare Recenzii:</h5>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Aici poți elimina mesajele nedorite de pe site.</p>
+            <div id="admin_reviews_list"></div>
+        </div>
+    </div>
+
+</div> <script>
+    function show(id) {
+        document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+        let target = document.getElementById(id);
+        if(target) target.style.display = 'block';
+        if (window.innerWidth < 992) { window.scrollTo(0,0); }
+    }
+
+    function accesMedic() {
+        let pass = prompt("Introdu parola Casei:");
+        if (pass === "dralexc") { show('admin_panel'); } 
+        else { alert("Acces interzis!"); }
+    }
+
+    function trimiteWhatsApp() {
+        let n = document.getElementById('c_nume').value;
+        let o = document.getElementById('c_ora').value;
+        if(!n || !o) return alert("Te rugăm să completezi toate datele!");
+        window.open(`https://wa.me/40724248842?text=Bună ziua! Sunt ${n}, doresc o programare: ${o}`);
+    }
+
+    function salveazaProgramare() {
+        let n = document.getElementById('adm_p_nume').value;
+        let o = document.getElementById('adm_p_ora').value;
+        if(!n || !o) return;
+        let p = JSON.parse(localStorage.getItem('prog') || '[]');
+        p.push({nume: n, ora: o});
+        localStorage.setItem('prog', JSON.stringify(p));
+        afiseazaDate();
+    }
+
+    function afiseazaDate() {
+        let prog = JSON.parse(localStorage.getItem('prog') || '[]');
+        let html = '';
+        prog.sort((a,b)=>a.ora.localeCompare(b.ora)).forEach((x, i) => {
+            html += `<tr><td>${x.ora}</td><td>${x.nume}</td><td><button onclick="sterge(${i})" class="btn btn-danger btn-sm">X</button></td></tr>`;
+        });
+        document.getElementById('tabel-programari').innerHTML = html;
+    }
+
+    function sterge(i) {
+        let p = JSON.parse(localStorage.getItem('prog'));
+        p.splice(i, 1);
+        localStorage.setItem('prog', JSON.stringify(p));
+        afiseazaDate();
+    }
+
+    function adaugaReview() {
+        let nume = document.getElementById('rev_nume').value;
+        let text = document.getElementById('rev_text').value;
+        let rating = document.getElementById('rev_rating').value;
+        let data = new Date().toLocaleDateString('ro-RO');
+        if(!nume || !text) return alert("Completează tot!");
+        let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+        reviews.unshift({ nume, text, rating, data });
+        localStorage.setItem('site_reviews', JSON.stringify(reviews));
+        document.getElementById('rev_nume').value = "";
+        document.getElementById('rev_text').value = "";
+        afiseazaReviews();
+    }
+
+    function afiseazaReviews() {
+        let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+        let htmlPublic = '';
+        let htmlAdmin = '';
+
+        if(reviews.length === 0) {
+            htmlPublic = '<p class="text-center opacity-50">Nicio recenzie încă.</p>';
+            htmlAdmin = '<p class="text-center opacity-50">Nu sunt recenzii de șters.</p>';
+        } else {
+            reviews.forEach((r, index) => {
+                // Ce văd pacienții
+                htmlPublic += `<div class="mb-4 p-3" style="border-left: 3px solid #d4af37; background: rgba(255,255,255,0.03);">
+                    <strong>${r.nume}</strong> <small>(${r.data})</small><br>
+                    <div style="color: gold;">${r.rating}</div>
+                    <p class="mb-0">"${r.text}"</p></div>`;
+                
+                // Ce vezi tu în Admin (cu buton de ștergere)
+                htmlAdmin += `<div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom border-secondary">
+                    <span><strong>${r.nume}</strong>: ${r.text.substring(0, 20)}...</span>
+                    <button class="btn btn-danger btn-sm" onclick="stergeReview(${index})">Șterge</button>
+                </div>`;
+            });
+        }
+        document.getElementById('lista_reviews').innerHTML = htmlPublic;
+        // Punem lista și în panoul de admin
+        let adminList = document.getElementById('admin_reviews_list');
+        if(adminList) adminList.innerHTML = htmlAdmin;
+    }
+
+    // FUNCȚIA DE ȘTERGERE DEFINITIVĂ
+    function stergeReview(index) {
+        if(confirm("Ești sigur că vrei să ștergi această recenzie din hrisoavele cetății?")) {
+            let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+            reviews.splice(index, 1); // Scoate recenzia din listă
+            localStorage.setItem('site_reviews', JSON.stringify(reviews)); // Salvează lista nouă
+            afiseazaReviews(); // Reîmprospătează afișarea
+        }
+    }
+	
+    window.onload = function() {
+		afiseazaDate();
+		afiseazaReviews();
+    
+		// Mesaj de bun venit
+		setTimeout(() => {
+			alert("Bine ați venit în Citadela Dr. Alexandra-Ioana Cobrescu-Sucitu! Zâmbetul dumneavoastră este în siguranță aici.");
+		}, 1000);
+	};
+</script>
+
+<a href="https://wa.me/40724248842" target="_blank" style="position:fixed; bottom:20px; right:20px; background:#25d366; color:white; border-radius:50%; width:60px; height:60px; display:flex; align-items:center; justify-content:center; box-shadow: 2px 2px 15px rgba(0,0,0,0.8); z-index:9999;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:35px;">
+</a>
+
+</body>
+</html>
