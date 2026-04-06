@@ -306,6 +306,22 @@
             <div id="lista_pacienti_dosar"></div>
         </div>
     </div>
+	
+	<div class="row g-2 mb-3">
+		<div class="col-md-6">
+			<div class="p-2 text-center" style="background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745;">
+				<small class="d-block text-muted">Încasări Lună Curentă:</small>
+				<strong id="venit_lunar" style="color: #28a745; font-size: 1.2rem;">0 RON</strong>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="p-2 text-center" style="background: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545;">
+				<small class="d-block text-muted">Total Restanțe (Datorii):</small>
+				<strong id="total_restante" style="color: #dc3545; font-size: 1.2rem;">0 RON</strong>
+			</div>
+		</div>
+	</div>
+	
 
     <div id="tab-moderare" class="admin-tab" style="display:none;">
         <div class="card p-3">
@@ -479,10 +495,30 @@ function salveazaInGestiune(pacient) {
 function afiseazaPacienti() {
     let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
     let html = '';
+    
+    // Variabile pentru calcule
+    let sumaLunaCurenta = 0;
+    let sumaRestante = 0;
+    
+    // Identificăm luna și anul curent (ex: "04.2026")
+    let dataAcum = new Date();
+    let lunaAnCurent = (dataAcum.getMonth() + 1).toString().padStart(2, '0') + "." + dataAcum.getFullYear();
 
     gestiune.forEach((p, index) => {
         let tratamentFormatat = p.tratament.replace(/\n/g, "<br>");
-        let restDePlata = (p.pretTotal || 0) - (p.achitat || 0);
+        let pret = parseFloat(p.pretTotal) || 0;
+        let achitat = parseFloat(p.achitat) || 0;
+        let restDePlata = pret - achitat;
+        
+        // Calculăm restanțele totale (din tot istoricul)
+        if(restDePlata > 0) sumaRestante += restDePlata;
+        
+        // Calculăm venitul doar pentru luna curentă
+        // Verificăm dacă data pacientului (ex: "06.04.2026") conține luna curentă ("04.2026")
+        if(p.data && p.data.includes(lunaAnCurent)) {
+            sumaLunaCurenta += achitat;
+        }
+
         let statusPlata = restDePlata <= 0 ? 
             '<span class="badge bg-success">Achitat integral</span>' : 
             `<span class="badge bg-danger">Rest: ${restDePlata} RON</span>`;
@@ -497,7 +533,7 @@ function afiseazaPacienti() {
                 </div>
             </div>
             <div class="mb-2 p-2 bg-dark" style="font-size: 0.85rem; border-left: 2px solid #d4af37;">
-                <strong>Financiar:</strong> Total ${p.pretTotal || 0} RON | Achitat ${p.achitat || 0} RON <br>
+                <strong>Financiar:</strong> Total ${pret} RON | Achitat ${achitat} RON
                 <hr style="margin: 5px 0; opacity: 0.2;">
                 ${tratamentFormatat}
             </div>
@@ -508,6 +544,11 @@ function afiseazaPacienti() {
             </div>
         </div>`;
     });
+
+    // Actualizăm cifrele în panoul de sus
+    document.getElementById('venit_lunar').innerText = sumaLunaCurenta + " RON";
+    document.getElementById('total_restante').innerText = sumaRestante + " RON";
+    
     document.getElementById('lista_pacienti_dosar').innerHTML = html;
 }
 
