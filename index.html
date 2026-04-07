@@ -66,11 +66,15 @@
         .table { color: #ccc; }
         .table thead { color: #d4af37; border-bottom: 2px solid #d4af37; }
 
-        .form-control {
-            background-color: #333;
-            border: 1px solid #d4af37;
-            color: white;
+        .form-control, input, textarea, select {
+            background-color: #333 !important;
+            border: 1px solid #d4af37 !important;
+            color: white !important;
             border-radius: 0;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
         }
 
         .img-cabinet {
@@ -91,34 +95,6 @@
             .sidebar { position: relative; width: 100%; height: auto; border-right: none; }
             .content { margin-left: 0; width: 100%; padding: 20px; }
         }
-		
-		
-		* 1. Face textul scris de tine să fie alb pur */
-	.form-control, input, textarea {
-		color: #ffffff !important;
-		background-color: #2b2b2b !important; /* Un gri puțin mai deschis ca să se vadă marginile */
-	}
-
-	/* 2. Face textul de fundal (Nume Pacient, Preț etc.) să fie gri deschis/alb lăptos */
-	.form-control::placeholder {
-		color: rgba(255, 255, 255, 0.7) !important;
-		opacity: 1; /* Browserul Firefox are nevoie de asta */
-	}
-
-	/* 3. Când dai click în căsuță, fundalul se face un pic mai deschis ca să vezi unde ești */
-	.form-control:focus {
-		background-color: #333333 !important;
-		color: #ffffff !important;
-		border-color: #d4af37 !important;
-		box-shadow: 0 0 10px rgba(212, 175, 55, 0.5) !important;
-	}
-
-	/* 4. Fix pentru browserele care forțează text negru la input-uri */
-	input {
-		color: white !important;
-	}
-		
-		
     </style>
 </head>
 <body>
@@ -197,7 +173,7 @@
                 <div class="col-lg-7">
                     <div style="border: 2px solid #d4af37; padding: 5px; background: #000;">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.581533550882!2d26.101740376664975!3d44.42123537107572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff160f607d57%3A0x6b44a30e163b2f5a!2sBulevardul%20Dimitrie%20Cantemir%2020%2C%20Bucure%C8%99ti!5e0!3m2!1sro!2sro!4v1716550000000!5m2!1sro!2sro" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.5244583794356!2d26.10134447665798!3d44.42239400236041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff16e788c039%3A0xc3995f5c35b8801d!2sBulevardul%20Dimitrie%20Cantemir%2020%2C%20Bucure%C8%99ti%20040245!5e0!3m2!1sro!2sro!4v1712499110000!5m2!1sro!2sro" 
                             width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
                         </iframe>
                     </div>
@@ -210,11 +186,11 @@
         <h1>💰 Tarifele Cabinetului </h1>
         <div class="card p-4">
             <table class="table">
-                <thead><tr><th>Serviciu Nobiliar</th><th>Cost (RON)</th></tr></thead>
+                <thead><tr><th>Serviciu</th><th>Cost (RON)</th></tr></thead>
                 <tbody>
                     <tr><td>Consultație </td><td>150 RON</td></tr>
                     <tr><td>Detartraj </td><td>250 RON</td></tr>
-                    <tr><td>Plombă Compozit)</td><td>300 RON</td></tr>
+                    <tr><td>Plombă Compozit</td><td>300 RON</td></tr>
                 </tbody>
             </table>
         </div>
@@ -251,9 +227,8 @@
                     <option>După-amiaza (14:00 - 18:00)</option>
                 </select>
                 <button class="btn btn-outline-gold w-100 py-2" onclick="trimiteWhatsApp()">Trimite pe WhatsApp</button>
-                
-                <div class="mt-4 pt-3" style="border-top: 1px solid rgba(212, 175, 55, 0.2);">
-                    <p class="mb-2" style="font-size: 0.9rem; color: #aaa;">🛡️ Pentru urgențe regale, apelați direct :</p>
+                <div class="mt-4 pt-3" style="border-top: 1px solid rgba(212,175,55,0.2);">
+                    <p class="mb-2" style="font-size: 0.9rem; color: #aaa;">🛡️ Pentru urgențe, apelați direct :</p>
                     <a href="tel:+40724248842" style="color: #d4af37; text-decoration: none; font-size: 1.2rem; font-weight: bold;">
                         📞 +40 724 248 842
                     </a>
@@ -263,70 +238,77 @@
     </div>
 
     <div id="admin_panel" class="section" style="display:none;">
-    <h1>📚 Registrul Maistrului (Admin)</h1>
-    
-    <div class="d-flex mb-4 gap-2 flex-wrap">
-        <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-programari')">📅 Programări</button>
-        <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-dosare')">📋 Dosare Pacienți</button>
-        <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-moderare')">🛡️ Recenzii</button>
-    </div>
-
-    <div id="tab-programari" class="admin-tab">
-        <div class="card p-3">
-            <h5 style="color: #d4af37;">📅 Programări Curente</h5>
-            <div class="row g-2 mb-3">
-                <div class="col-md-5"><input type="text" id="adm_p_nume" class="form-control" placeholder="Pacient"></div>
-                <div class="col-md-4"><input type="time" id="adm_p_ora" class="form-control"></div>
-                <div class="col-md-3"><button class="btn btn-outline-gold w-100 m-0" onclick="salveazaProgramare()">Adaugă</button></div>
-            </div>
-            <table class="table">
-                <thead><tr><th>Ora</th><th>Nume</th><th>Acțiuni</th></tr></thead>
-                <tbody id="tabel-programari"></tbody>
-            </table>
+        <h1>📚 Registrul Maistrului (Admin)</h1>
+        
+        <div class="d-flex mb-4 gap-2 flex-wrap">
+            <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-programari')">📅 Programări</button>
+            <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-dosare')">📋 Dosare Pacienți</button>
+            <button class="btn btn-outline-gold flex-fill" onclick="showTab('tab-moderare')">🛡️ Recenzii</button>
         </div>
-    </div>
 
-    <div id="tab-dosare" class="admin-tab" style="display:none;">
-        <div class="card p-3">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 style="color: #d4af37; margin:0;">📋 Dosare Pacienți</h5>
-                <button class="btn btn-success btn-sm" onclick="exportaCSV()">📥 Salvează CSV (Excel)</button>
-            </div>
-            <div class="row g-2 mb-3">
-                <div class="col-md-6"><input type="text" id="p_nume" class="form-control" placeholder="Nume Pacient"></div>
-                <div class="col-md-6"><input type="file" id="p_radiografie" class="form-control" accept="image/*"></div>
-				<div class="col-md-6"><input type="number" id="p_pret_total" class="form-control" placeholder="Preț Total (RON)"></div>
-				<div class="col-md-6"><input type="number" id="p_achitat" class="form-control" placeholder="Suma Achitată (RON)"></div>
-            <div class="col-12">
-                <div class="col-12">
-                    <textarea id="p_tratament" class="form-control mt-2" rows="4" placeholder="Tratament efectuat (ex: - Extracție \n - Detartraj)"></textarea>
+        <div id="tab-programari" class="admin-tab">
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<h5 style="color: #d4af37; margin:0;">📅 Programări Curente</h5>
+				<button class="btn btn-success btn-sm" onclick="exportaProgramariCSV()">📥 Salvează Programări (Excel)</button>
+			</div>
+			<div class="row g-2 mb-3">
+				<div class="col-md-5"><input type="text" id="adm_p_nume" class="form-control" placeholder="Nume Pacient"></div>
+				<div class="col-md-4"><input type="time" id="adm_p_ora" class="form-control"></div>
+				<div class="col-md-3"><button class="btn btn-outline-gold w-100 m-0" onclick="salveazaProgramare()">Adaugă</button></div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="color: #d4af37;">Ora</th>
+						<th style="color: #d4af37;">Pacient</th>
+						<th style="color: #d4af37; text-align:right;">Acțiuni</th>
+					</tr>
+				</thead>
+					<tbody id="tabel-programari"></tbody>
+			</table>
+		</div>
+	
+        <div id="tab-dosare" class="admin-tab" style="display:none;">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 style="color: #d4af37; margin:0;">📋 Dosare Pacienți</h5>
+                    <button class="btn btn-success btn-sm" onclick="exportaCSV()">📥 Salvează CSV (Excel)</button>
                 </div>
-                <button class="btn btn-outline-gold w-100 mt-2" onclick="adaugaPacient()">💾 Salvează Dosar</button>
-            </div>
-            <div id="lista_pacienti_dosar"></div>
-        </div>
-    </div>
-	
-	<div class="row g-2 mb-3">
-		<div class="col-md-6">
-			<div class="p-2 text-center" style="background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745;">
-				<small class="d-block text-muted">Încasări Lună Curentă:</small>
-				<strong id="venit_lunar" style="color: #28a745; font-size: 1.2rem;">0 RON</strong>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="p-2 text-center" style="background: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545;">
-				<small class="d-block text-muted">Total Restanțe (Datorii):</small>
-				<strong id="total_restante" style="color: #dc3545; font-size: 1.2rem;">0 RON</strong>
-			</div>
-		</div>
-	</div>
-	
+                
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <div class="p-2 text-center" style="background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745;">
+                            <small class="d-block text-muted">Încasări Lună Curentă:</small>
+                            <strong id="venit_lunar" style="color: #28a745; font-size: 1.2rem;">0 RON</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-2 text-center" style="background: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545;">
+                            <small class="d-block text-muted">Total Restanțe (Datorii):</small>
+                            <strong id="total_restante" style="color: #dc3545; font-size: 1.2rem;">0 RON</strong>
+                        </div>
+                    </div>
+                </div>
 
-    <div id="tab-moderare" class="admin-tab" style="display:none;">
-        <div class="card p-3">
-            <h5 style="color: #d4af37;">🛡️ Moderare Recenzii</h5>
-            <div id="admin_reviews_list"></div>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6"><input type="text" id="p_nume" class="form-control" placeholder="Nume Pacient"></div>
+                    <div class="col-md-6"><input type="file" id="p_radiografie" class="form-control" accept="image/*"></div>
+                    <div class="col-md-6"><input type="number" id="p_pret_total" class="form-control" placeholder="Preț Total (RON)"></div>
+                    <div class="col-md-6"><input type="number" id="p_achitat" class="form-control" placeholder="Suma Achitată (RON)"></div>
+                    <div class="col-12 mt-2">
+                        <textarea id="p_tratament" class="form-control" rows="4" placeholder="Tratament efectuat (ex: - Extracție \n - Detartraj)"></textarea>
+                    </div>
+                    <button class="btn btn-outline-gold w-100 mt-2" onclick="adaugaPacient()">💾 Salvează Dosar</button>
+                </div>
+                <div id="lista_pacienti_dosar"></div>
+            </div>
+        </div>
+
+        <div id="tab-moderare" class="admin-tab" style="display:none;">
+            <div class="card p-3">
+                <h5 style="color: #d4af37;">🛡️ Moderare Recenzii</h5>
+                <div id="admin_reviews_list"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -339,10 +321,19 @@
         if (window.innerWidth < 992) { window.scrollTo(0,0); }
     }
 
+    function showTab(tabId) {
+        document.querySelectorAll('.admin-tab').forEach(tab => tab.style.display = 'none');
+        document.getElementById(tabId).style.display = 'block';
+    }
+
     function accesMedic() {
         let pass = prompt("Introdu parola Casei:");
-        if (pass === "dralexc") { show('admin_panel'); } 
-        else { alert("Acces interzis!"); }
+        if (pass === "dralexc") { 
+            show('admin_panel'); 
+            showTab('tab-programari');
+        } else { 
+            alert("Acces interzis!"); 
+        }
     }
 
     function trimiteWhatsApp() {
@@ -367,12 +358,12 @@
         let prog = JSON.parse(localStorage.getItem('prog') || '[]');
         let html = '';
         prog.sort((a,b)=>a.ora.localeCompare(b.ora)).forEach((x, i) => {
-            html += `<tr><td>${x.ora}</td><td>${x.nume}</td><td><button onclick="sterge(${i})" class="btn btn-danger btn-sm">X</button></td></tr>`;
+            html += `<tr><td>${x.ora}</td><td>${x.nume}</td><td><button onclick="stergeProg(${i})" class="btn btn-danger btn-sm">X</button></td></tr>`;
         });
         document.getElementById('tabel-programari').innerHTML = html;
     }
 
-    function sterge(i) {
+    function stergeProg(i) {
         let p = JSON.parse(localStorage.getItem('prog'));
         p.splice(i, 1);
         localStorage.setItem('prog', JSON.stringify(p));
@@ -380,240 +371,183 @@
     }
 
     function adaugaReview() {
-        let nume = document.getElementById('rev_nume').value;
-        let text = document.getElementById('rev_text').value;
-        let rating = document.getElementById('rev_rating').value;
-        let dataPostarii = new Date().toLocaleDateString('ro-RO');
-
-        if(!nume || !text) return alert("Te rugăm să completezi numele și mesajul!");
-
-        let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
-        reviews.unshift({ nume, text, rating, data: dataPostarii });
-        localStorage.setItem('site_reviews', JSON.stringify(reviews));
-
-        document.getElementById('rev_nume').value = "";
+        let n = document.getElementById('rev_nume').value;
+        let t = document.getElementById('rev_text').value;
+        let r = document.getElementById('rev_rating').value;
+        if(!n || !t) return alert("Completează tot!");
+        
+        let revs = JSON.parse(localStorage.getItem('site_reviews') || '[]');
+        revs.unshift({ nume: n, text: t, rating: r, data: new Date().toLocaleDateString('ro-RO'), reply: "" });
+        localStorage.setItem('site_reviews', JSON.stringify(revs));
+        
+        document.getElementById('rev_nume').value = ""; 
         document.getElementById('rev_text').value = "";
         afiseazaReviews();
     }
 
     function afiseazaReviews() {
         let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
-        let htmlPublic = '';
+        let htmlPublic = ''; 
         let htmlAdmin = '';
 
-        if(reviews.length === 0) {
-            htmlPublic = '<p class="text-center opacity-50">Nicio recenzie încă.</p>';
-            htmlAdmin = '<p class="text-center opacity-50">Nu sunt recenzii de moderat.</p>';
-        } else {
-            reviews.forEach((r, index) => {
-                // Public
-                htmlPublic += `
-                    <div class="mb-4 p-3" style="border-left: 3px solid #d4af37; background: rgba(255,255,255,0.03);">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <strong>${r.nume}</strong>
-                            <small style="color: #888;">${r.data}</small> 
-                        </div>
-                        <div style="color: gold; font-size: 0.8rem; margin: 5px 0;">${r.rating}</div>
-                        <p class="mb-0" style="font-style: italic;">"${r.text}"</p>
-                    </div>`;
-                
-                // Admin
-                htmlAdmin += `
-                    <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom border-secondary">
-                        <span style="font-size:0.8rem;"><strong>${r.nume}</strong>: ${r.text.substring(0, 20)}...</span>
+        reviews.forEach((r, index) => {
+            htmlPublic += `
+                <div class="mb-4 p-3 border-start border-warning bg-dark">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <strong>${r.nume}</strong>
+                        <small style="color: #888;">${r.data}</small>
+                    </div>
+                    <div style="color: gold; font-size: 0.8rem; margin: 5px 0;">${r.rating}</div>
+                    <p class="mb-0" style="font-style: italic;">"${r.text}"</p>
+                    ${r.reply ? `<div class="mt-2 p-2 bg-black border border-warning" style="font-size:0.9rem;"><strong>Răspuns Dr. Alexandra:</strong> ${r.reply}</div>` : ''}
+                </div>`;
+
+            htmlAdmin += `
+                <div class="p-2 mb-2 border-bottom border-secondary bg-dark d-flex justify-content-between align-items-center">
+                    <span class="small" style="color:white;"><strong>${r.nume}</strong>: ${r.text.substring(0, 30)}...</span>
+                    <div>
+                        <button class="btn btn-warning btn-sm" onclick="raspundeReview(${index})">Răspunde</button>
                         <button class="btn btn-danger btn-sm" onclick="stergeReview(${index})">Șterge</button>
-                    </div>`;
-            });
-        }
-        document.getElementById('lista_reviews').innerHTML = htmlPublic;
-        const adminList = document.getElementById('admin_reviews_list');
-        if(adminList) adminList.innerHTML = htmlAdmin;
+                    </div>
+                </div>`;
+        });
+
+        document.getElementById('lista_reviews').innerHTML = htmlPublic || "Nicio recenzie încă.";
+        document.getElementById('admin_reviews_list').innerHTML = htmlAdmin || "Nicio recenzie de moderat.";
     }
 
-    function stergeReview(index) {
-        if(confirm("Ești sigur că vrei să ștergi această recenzie?")) {
-            let reviews = JSON.parse(localStorage.getItem('site_reviews') || '[]');
-            reviews.splice(index, 1);
+    function raspundeReview(index) {
+        let msg = prompt("Scrie răspunsul tău:");
+        if (msg) {
+            let reviews = JSON.parse(localStorage.getItem('site_reviews'));
+            reviews[index].reply = msg;
             localStorage.setItem('site_reviews', JSON.stringify(reviews));
             afiseazaReviews();
         }
     }
-    
-    window.onload = function() {
-        afiseazaDate();
-        afiseazaReviews();
-        setTimeout(() => {
-            alert("Bine ați venit în Cabinetul  Dr. Alexandra-Ioana Cobrescu-Sucitu!");
-        }, 1000);
-    };
-	
-	function adaugaPacient() {
-    let nume = document.getElementById('p_nume').value;
-    let tratament = document.getElementById('p_tratament').value;
-    let pretTotal = parseFloat(document.getElementById('p_pret_total').value) || 0;
-    let achitat = parseFloat(document.getElementById('p_achitat').value) || 0;
-    let fileInput = document.getElementById('p_radiografie');
-    let data = new Date().toLocaleDateString('ro-RO');
 
-    if (!nume || !tratament) return alert("Completează numele și tratamentul!");
-
-    let dosarNou = { 
-        nume, 
-        tratament, 
-        pretTotal, 
-        achitat, 
-        data, 
-        img: null 
-    };
-
-    if (fileInput.files && fileInput.files[0]) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            dosarNou.img = e.target.result;
-            salveazaInGestiune(dosarNou);
-        };
-        reader.readAsDataURL(fileInput.files[0]);
-    } else {
-        salveazaInGestiune(dosarNou);
-    }
-}
-
-function salveazaInGestiune(pacient) {
-    let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
-    gestiune.unshift(pacient);
-    localStorage.setItem('gestiune_pacienti', JSON.stringify(gestiune));
-    
-    // Reset formular
-    document.getElementById('p_nume').value = "";
-    document.getElementById('p_tratament').value = "";
-    document.getElementById('p_pret_total').value = "";
-    document.getElementById('p_achitat').value = "";
-    document.getElementById('p_radiografie').value = "";
-    afiseazaPacienti();
-}
-
-function afiseazaPacienti() {
-    let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
-    let html = '';
-    
-    // Variabile pentru calcule
-    let sumaLunaCurenta = 0;
-    let sumaRestante = 0;
-    
-    // Identificăm luna și anul curent (ex: "04.2026")
-    let dataAcum = new Date();
-    let lunaAnCurent = (dataAcum.getMonth() + 1).toString().padStart(2, '0') + "." + dataAcum.getFullYear();
-
-    gestiune.forEach((p, index) => {
-        let tratamentFormatat = p.tratament.replace(/\n/g, "<br>");
-        let pret = parseFloat(p.pretTotal) || 0;
-        let achitat = parseFloat(p.achitat) || 0;
-        let restDePlata = pret - achitat;
-        
-        // Calculăm restanțele totale (din tot istoricul)
-        if(restDePlata > 0) sumaRestante += restDePlata;
-        
-        // Calculăm venitul doar pentru luna curentă
-        // Verificăm dacă data pacientului (ex: "06.04.2026") conține luna curentă ("04.2026")
-        if(p.data && p.data.includes(lunaAnCurent)) {
-            sumaLunaCurenta += achitat;
+    function stergeReview(i) {
+        if(confirm("Ștergi recenzia?")) {
+            let r = JSON.parse(localStorage.getItem('site_reviews'));
+            r.splice(i, 1);
+            localStorage.setItem('site_reviews', JSON.stringify(r));
+            afiseazaReviews();
         }
+    }
 
-        let statusPlata = restDePlata <= 0 ? 
-            '<span class="badge bg-success">Achitat integral</span>' : 
-            `<span class="badge bg-danger">Rest: ${restDePlata} RON</span>`;
+    function adaugaPacient() {
+        let n = document.getElementById('p_nume').value;
+        let t = document.getElementById('p_tratament').value;
+        let pt = parseFloat(document.getElementById('p_pret_total').value) || 0;
+        let ac = parseFloat(document.getElementById('p_achitat').value) || 0;
+        let fileInput = document.getElementById('p_radiografie');
+        let data = new Date().toLocaleDateString('ro-RO');
+
+        if (!n || !t) return alert("Completează numele și tratamentul!");
+
+        if (fileInput.files && fileInput.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                salveazaInGestiune({ nume: n, tratament: t, pretTotal: pt, achitat: ac, data: data, img: e.target.result });
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            salveazaInGestiune({ nume: n, tratament: t, pretTotal: pt, achitat: ac, data: data, img: null });
+        }
+    }
+
+    function salveazaInGestiune(pacient) {
+        let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
+        gestiune.unshift(pacient);
+        localStorage.setItem('gestiune_pacienti', JSON.stringify(gestiune));
         
-        html += `
-        <div class="p-3 mb-3" style="background: rgba(255,255,255,0.05); border: 1px solid #d4af37;">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6 class="mb-0" style="color: #d4af37;">${p.nume}</h6>
-                <div class="text-end">
-                    <small class="d-block" style="opacity: 0.6;">${p.data}</small>
-                    ${statusPlata}
-                </div>
-            </div>
-            <div class="mb-2 p-2 bg-dark" style="font-size: 0.85rem; border-left: 2px solid #d4af37;">
-                <strong>Financiar:</strong> Total ${pret} RON | Achitat ${achitat} RON
-                <hr style="margin: 5px 0; opacity: 0.2;">
-                ${tratamentFormatat}
-            </div>
-            ${p.img ? `<img src="${p.img}" style="width: 100%; max-width: 150px; border: 1px solid #d4af37; margin-bottom: 10px; cursor:pointer;" onclick="window.open('${p.img}')">` : ''}
-            <div class="text-end">
-                <button class="btn btn-warning btn-sm" onclick="editeazaDosar(${index})">✏️ Editează</button>
-                <button class="btn btn-danger btn-sm" onclick="stergePacient(${index})">🗑️ Șterge</button>
-            </div>
-        </div>`;
+        document.getElementById('p_nume').value = "";
+        document.getElementById('p_tratament').value = "";
+        document.getElementById('p_pret_total').value = "";
+        document.getElementById('p_achitat').value = "";
+        document.getElementById('p_radiografie').value = "";
+        afiseazaPacienti();
+    }
+
+    function afiseazaPacienti() {
+        let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
+        let html = ''; let sL = 0; let sR = 0;
+        let lunaAnCurent = (new Date().getMonth() + 1).toString().padStart(2, '0') + "." + new Date().getFullYear();
+
+        gestiune.forEach((p, index) => {
+            let rest = (parseFloat(p.pretTotal) || 0) - (parseFloat(p.achitat) || 0);
+            if(rest > 0) sR += rest;
+            if(p.data && p.data.includes(lunaAnCurent)) sL += (parseFloat(p.achitat) || 0);
+
+            html += `
+                <div class="p-3 mb-3 bg-dark border border-warning">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>${p.nume}</strong>
+                        <span class="badge ${rest<=0?'bg-success':'bg-danger'}">${rest<=0?'Achitat':'Rest:'+rest}</span>
+                    </div>
+                    <div class="small opacity-60">${p.data} | Total: ${p.pretTotal} | Achitat: ${p.achitat}</div>
+                    <div class="mt-2" style="font-size:0.9rem;">${p.tratament.replace(/\n/g, "<br>")}</div>
+                    ${p.img ? `<img src="${p.img}" style="width:100px; cursor:pointer" class="mt-2 border border-warning" onclick="window.open('${p.img}')">` : ''}
+                    <div class="text-end mt-2">
+                        <button class="btn btn-warning btn-sm" onclick="editarePacient(${index})">✏️</button>
+                        <button class="btn btn-danger btn-sm" onclick="stergePacient(${index})">🗑️</button>
+                    </div>
+                </div>`;
+        });
+        document.getElementById('venit_lunar').innerText = sL + " RON";
+        document.getElementById('total_restante').innerText = sR + " RON";
+        document.getElementById('lista_pacienti_dosar').innerHTML = html;
+    }
+
+    function editarePacient(index) {
+        let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti'));
+        let p = gestiune[index];
+        document.getElementById('p_nume').value = p.nume;
+        document.getElementById('p_tratament').value = p.tratament;
+        document.getElementById('p_pret_total').value = p.pretTotal;
+        document.getElementById('p_achitat').value = p.achitat;
+        gestiune.splice(index, 1);
+        localStorage.setItem('gestiune_pacienti', JSON.stringify(gestiune));
+        afiseazaPacienti();
+        window.scrollTo(0,0);
+    }
+
+    function stergePacient(i) {
+        if(confirm("Ștergi istoricul?")) {
+            let g = JSON.parse(localStorage.getItem('gestiune_pacienti'));
+            g.splice(i, 1);
+            localStorage.setItem('gestiune_pacienti', JSON.stringify(g));
+            afiseazaPacienti();
+        }
+    }
+
+   function exportaProgramariCSV() {
+    let programari = JSON.parse(localStorage.getItem('prog') || '[]');
+    if(programari.length === 0) return alert("Nu există programări de salvat!");
+
+    let csvContent = "data:text/csv;charset=utf-8,Ora,Pacient\n";
+    
+    // Sortăm după oră înainte de salvare
+    programari.sort((a,b) => a.ora.localeCompare(b.ora)).forEach(p => {
+        csvContent += `${p.ora},${p.nume}\n`;
     });
 
-    // Actualizăm cifrele în panoul de sus
-    document.getElementById('venit_lunar').innerText = sumaLunaCurenta + " RON";
-    document.getElementById('total_restante').innerText = sumaRestante + " RON";
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement("a");
+    let dataAzi = new Date().toLocaleDateString('ro-RO').replace(/\//g, '-');
     
-    document.getElementById('lista_pacienti_dosar').innerHTML = html;
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Programari_${dataAzi}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
-function editeazaDosar(index) {
-    let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti'));
-    let p = gestiune[index];
-    
-    document.getElementById('p_nume').value = p.nume;
-    document.getElementById('p_tratament').value = p.tratament;
-    document.getElementById('p_pret_total').value = p.pretTotal || 0;
-    document.getElementById('p_achitat').value = p.achitat || 0;
-    
-    gestiune.splice(index, 1);
-    localStorage.setItem('gestiune_pacienti', JSON.stringify(gestiune));
-    afiseazaPacienti();
-    window.scrollTo(0,0);
-}
-
-    function exportaCSV() {
-        let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti') || '[]');
-        if(gestiune.length === 0) return alert("Nu există date de exportat!");
-
-        let csvContent = "data:text/csv;charset=utf-8,Data,Pacient,Tratament\n";
-        gestiune.forEach(p => {
-            // Curățăm textul pentru a nu strica formatul tabelului Excel
-            let tClean = p.tratament.replace(/,/g, ";").replace(/\n/g, " | ");
-            csvContent += `${p.data},${p.nume},${tClean}\n`;
-        });
-
-        let encodedUri = encodeURI(csvContent);
-        let link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "Registru_Pacienti_Dr_Cobrescu.csv");
-        document.body.appendChild(link);
-        link.click();
-    }
-
-	
-	function stergePacient(index) {
-		if(confirm("Ești sigur că vrei să ștergi acest istoric medical?")) {
-			let gestiune = JSON.parse(localStorage.getItem('gestiune_pacienti'));
-			gestiune.splice(index, 1);
-			localStorage.setItem('gestiune_pacienti', JSON.stringify(gestiune));
-			afiseazaPacienti();
-		}
-	}
-	
-	function showTab(tabId) {
-		// Ascunde toate tab-urile de admin
-		document.querySelectorAll('.admin-tab').forEach(tab => {
-			tab.style.display = 'none';
-		});
-		// Afișează doar tab-ul selectat
-		document.getElementById(tabId).style.display = 'block';
-	}
-
-	// UPDATE: Adaugă afiseazaPacienti() în window.onload
-	const originalOnload = window.onload;
-	window.onload = function() {
-		originalOnload();
-		afiseazaPacienti();
-	};
-	
-			
-	
+    window.onload = function() {
+        afiseazaDate();
+        afiseazaPacienti();
+        afiseazaReviews();
+    };
 </script>
 
 <a href="https://wa.me/40724248842" target="_blank" style="position:fixed; bottom:20px; right:20px; background:#25d366; color:white; border-radius:50%; width:60px; height:60px; display:flex; align-items:center; justify-content:center; box-shadow: 2px 2px 15px rgba(0,0,0,0.8); z-index:9999;">
